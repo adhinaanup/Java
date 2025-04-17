@@ -1,0 +1,32 @@
+import java.util.*;
+import java.io.*;
+class writerdemo{
+	public static void main(String args[]) throws IOException{
+		Scanner sc=new Scanner(System.in);
+		try{
+			FileWriter f1=new FileWriter("file1.txt",true);
+			System.out.print("Enter the number of strings : ");
+			int n=sc.nextInt();
+			sc.nextLine();
+			f1.write("\n");
+			for(int i=0;i<n;i++){
+				System.out.print("Enter the string : ");
+				String s=sc.nextLine();
+				char buffer[]=new char[s.length()];
+				s.getChars(0,s.length(),buffer,0);
+				f1.write(buffer);
+                 			f1.write("\n");
+			}
+			f1.close();
+			FileReader f2=new FileReader("file1.txt");
+			BufferedReader br = new BufferedReader(f2);
+			String s1;
+			while((s1=br.readLine())!=null){
+				System.out.println("\nReading is performed : "+s1);}
+			f2.close();
+		}
+		catch(IOException e){
+			System.out.println(“Exception caugth”+e.getMessage());
+		}
+	}
+}
