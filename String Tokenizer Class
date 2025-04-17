@@ -1,0 +1,21 @@
+import java.util.*;
+class tokenizer
+{
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.print("Enter the String of Integers : ");
+		String s=sc.nextLine();
+		StringTokenizer t = new StringTokenizer(s," ");
+		int sum=0;
+		System.out.println("_____Integers____");
+		while(t.hasMoreTokens())
+		{
+			String t1= t.nextToken();
+			int num=Integer.parseInt(t1);
+			System.out.println(num);
+			sum=sum+num;
+		}
+		System.out.print("\nSUM : "+sum);
+	}
+}
