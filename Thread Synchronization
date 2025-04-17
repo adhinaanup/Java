@@ -1,0 +1,37 @@
+class AllocateStation{
+	public void allocate(String name) {
+		System.out.println("Entering "+name+" into the station");
+	}  
+	public void deAllocate(String name) {
+		System.out.println("Exiting "+name+" from station");
+	}
+}
+class Train extends Thread{
+	AllocateStation station;
+	String trainName;
+	public Train(String name, AllocateStation st) {
+		trainName = name;
+		station = st;
+	}
+	public void run() {
+		synchronized (station) {
+			station.allocate(trainName);
+			station.deAllocate(trainName);
+			try {
+			Thread.sleep(1000);
+			}
+			catch(Exception e)
+			{
+			}	
+		}
+	}	
+}
+public class MultiThreadSync {
+	public static void main(String arg[]) {
+	    AllocateStation station= new AllocateStation();
+		Train train1 = new Train("First Train",station);
+		Train train2 = new Train("Second Train",station);
+		train1.start();
+		train2.start();
+	}
+}
