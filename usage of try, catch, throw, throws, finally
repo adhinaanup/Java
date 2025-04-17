@@ -1,0 +1,24 @@
+import java.util.Scanner;
+public class age{
+	static void vote(int age) throws IllegalAccessException{
+		if (age < 18) {
+			throw new IllegalAccessException("You must be at least 18 years old.");
+		}
+		else {
+			System.out.println("You can vote!");
+		}
+	}
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		try{
+			System.out.print("Enter age : ");
+			int n=sc.nextInt();
+			vote(n);
+		}
+		catch(Exception e){
+			System.out.println("Exception: "+e);
+		}
+		finally{
+			System.out.println("Election process completed");}
+	}
+}
