@@ -1,0 +1,12 @@
+public class garbagedemo{
+	public static void main(String args[]){
+		garbagedemo s1=new garbagedemo();
+		garbagedemo s2=new garbagedemo();
+		s1=null;
+		s2=null;
+		System.gc();
+	}
+	protected void finalize(){
+		System.out.println("Garbage collection is performed by JVM");
+	}
+}
