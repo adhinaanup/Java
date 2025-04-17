@@ -1,0 +1,113 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class SimpleCalculator extends JFrame implements ActionListener {
+    private JTextField textField;
+    private JButton[] digitButtons;
+    private JButton add, subtract, multiply, divide, modulus, equal, clear;
+    private double num1 = 0, num2 = 0, result = 0;
+    private char operator;
+    public SimpleCalculator() {
+        setTitle("Simple Calculator");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        textField = new JTextField(10);
+        textField.setEditable(false);
+        add(textField, BorderLayout.NORTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 4));
+        digitButtons = new JButton[10];
+        for (int i = 0; i < 10; i++) {
+            digitButtons[i] = new JButton(String.valueOf(i));
+            digitButtons[i].addActionListener(this);
+            buttonPanel.add(digitButtons[i]);
+        }
+        add = new JButton("+");
+        subtract = new JButton("-");
+        multiply = new JButton("*");
+        divide = new JButton("/");
+        
+
+        modulus = new JButton("%");
+        equal = new JButton("=");
+        clear = new JButton("C");
+        add.addActionListener(this);
+        subtract.addActionListener(this);
+        multiply.addActionListener(this);
+        divide.addActionListener(this);
+        modulus.addActionListener(this);
+        equal.addActionListener(this);
+        clear.addActionListener(this);
+        buttonPanel.add(add);
+        buttonPanel.add(subtract);
+        buttonPanel.add(multiply);
+        buttonPanel.add(divide);
+        buttonPanel.add(modulus);
+        buttonPanel.add(equal);
+        buttonPanel.add(clear);
+        add(buttonPanel, BorderLayout.CENTER);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == clear) {
+            num1 = 0;
+            num2 = 0;
+            result = 0;
+            operator = '\u0000';
+            textField.setText("");
+        } else if (source == equal) {
+            num2 = Double.parseDouble(textField.getText());
+            try {
+                result = calculate(num1, num2, operator);
+                textField.setText(String.valueOf(result));
+            } catch (ArithmeticException ex) {
+                textField.setText("Error: Divide by zero");
+            }
+            num1 = result;
+        
+
+
+	}
+	else {
+            for (int i = 0; i < 10; i++) {
+               
+	 if (source == digitButtons[i]) {
+                    textField.setText(textField.getText() + i);
+                }
+            }
+            if (source == add || source == subtract || source == multiply ||
+                    source == divide || source == modulus) {
+                num1 = Double.parseDouble(textField.getText());
+                operator = e.getActionCommand().charAt(0);
+                textField.setText("");
+            }
+        }
+    }
+    private double calculate(double num1, double num2, char operator) throws ArithmeticException {
+        switch (operator) {
+            case '+':
+                return num1 + num2;
+            case '-':
+                return num1 - num2;
+            case '*':
+                return num1 * num2;
+            case '/':
+                if (num2 == 0) {
+                    throw new ArithmeticException("Divide by zero");
+                }
+                return num1 / num2;
+            case '%':
+                return num1 % num2;
+            default:
+                return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(SimpleCalculator::new);
+    }
+}
