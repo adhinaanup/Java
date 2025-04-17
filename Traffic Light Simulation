@@ -1,0 +1,71 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class TrafficLightSimulation4 extends JFrame implements ActionListener {
+	private JRadioButton redButton, yellowButton, greenButton;
+    	private ButtonGroup buttonGroup;
+    	private JPanel lightPanel, controlPanel;
+    	private JPanel redPanel, yellowPanel, greenPanel;
+
+    	public TrafficLightSimulation4() {
+        		setTitle("Traffic Light Simulation");
+        		setSize(300, 100);
+        		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        		redButton = new JRadioButton("Red");
+        		yellowButton = new JRadioButton("Yellow");
+        		greenButton = new JRadioButton("Green");
+
+        		redButton.addActionListener(this);
+        		yellowButton.addActionListener(this);
+        		greenButton.addActionListener(this);
+
+        		buttonGroup = new ButtonGroup();
+        		buttonGroup.add(redButton);
+        		buttonGroup.add(yellowButton);
+        		buttonGroup.add(greenButton);
+
+        		redPanel = new JPanel();
+        
+
+		yellowPanel = new JPanel();
+        		greenPanel = new JPanel();
+
+        		controlPanel = new JPanel(new GridLayout(1, 3));
+        		controlPanel.add(redButton);
+        		controlPanel.add(yellowButton);
+        		controlPanel.add(greenButton);
+
+        		lightPanel = new JPanel(new GridLayout(1, 3));
+        		lightPanel.add(redPanel);
+        		lightPanel.add(yellowPanel);
+        		lightPanel.add(greenPanel);
+
+        		add(controlPanel, BorderLayout.NORTH);
+        		add(lightPanel, BorderLayout.CENTER);
+
+        		setVisible(true);
+    	}
+
+  	 public void actionPerformed(ActionEvent e) {
+        		redPanel.setBackground(Color.WHITE);
+        		yellowPanel.setBackground(Color.WHITE);
+        		greenPanel.setBackground(Color.WHITE);
+
+        		if (e.getSource() == redButton) {
+            		redPanel.setBackground(Color.RED);
+        			}
+		 else if (e.getSource() == yellowButton) {
+            		yellowPanel.setBackground(Color.YELLOW);
+        		}
+		 else if (e.getSource() == greenButton) {
+            		greenPanel.setBackground(Color.GREEN);
+        		}
+    	}
+
+    	public static void main(String[] args) {
+        		new TrafficLightSimulation4();
+    	}
+}
+
